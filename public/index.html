@@ -47,11 +47,7 @@
           </div>
         </div>
         
-        <div class="form-group">
-          <label for="footPadHeight">Foot Pad Height (mm)</label>
-          <input type="number" id="footPadHeight" name="footPadHeight" value="5" min="1" max="50" step="1">
-        </div>
-        
+
         <div class="form-group checkbox-group">
           <label>
             <input type="checkbox" id="freestandingFoot" name="freestandingFoot" checked>
@@ -59,18 +55,36 @@
           </label>
         </div>
         
-        <div class="form-group checkbox-group">
-          <label>
-            <input type="checkbox" id="frontFootRail" name="frontFootRail" checked>
-            Include front foot DIN rail
-          </label>
-        </div>
-        
-        <div class="form-group checkbox-group">
-          <label>
-            <input type="checkbox" id="backFootRail" name="backFootRail" checked>
-            Include back foot DIN rail
-          </label>
+        <div id="foot-options-container">
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="frontFootRail" name="frontFootRail" checked>
+              Include front foot DIN rail
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label for="frontFootDepth">Front Foot Depth (mm)</label>
+            <div class="range-container">
+              <input type="range" id="frontFootDepth" name="frontFootDepth" value="40" min="20" max="80" step="10">
+              <span id="frontFootDepth-val">40 mm</span>
+            </div>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="backFootRail" name="backFootRail">
+              Include back foot DIN rail
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label for="backFootDepth">Back Foot Depth (mm)</label>
+            <div class="range-container">
+              <input type="range" id="backFootDepth" name="backFootDepth" value="40" min="20" max="80" step="10">
+              <span id="backFootDepth-val">40 mm</span>
+            </div>
+          </div>
         </div>
         
         <div class="button-group">
@@ -86,7 +100,7 @@
         </div>
         
         <div class="advanced-mode">
-          <p>Need exact millimeter precision? <a href="https://cad.onshape.com/documents/e51df0b3cf2731be65ff4d8a/w/8f0f27d4c05cb541755b75f0/e/d8c5042a0e7c60372ca8a3fe?configuration=BackFootDIN%3Dfalse%3BBackFootDepth%3D0.001%2Bmeter%3BCount%3D1.0%3BExtraBottom%3D0.0%2Bmeter%3BExtraTop%3D0.0%2Bmeter%3BFootPadHeight%3D0.01%2Bmeter%3BFrontFootDIN%3Dfalse%3BFrontFootDepth%3D0.045%2Bmeter%3BGap%3D0.06%2Bmeter%3BIncludeFoot%3Dfalse&renderMode=0&uiState=6a5e5625b13ce118680d41d9" target="_blank">Open the full parametric model in Onshape.</a></p>
+          <p>Need exact millimeter precision? Open the full parametric model in <a href="https://cad.onshape.com/documents/e51df0b3cf2731be65ff4d8a/v/69059e9bb85521089f44040e/e/d8c5042a0e7c60372ca8a3fe" target="_blank">Onshape</a>.</p>
         </div>
       </form>
     </aside>

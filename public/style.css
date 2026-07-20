@@ -154,3 +154,22 @@ iframe {
   height: 100%;
   border: none;
 }
+
+.advanced-mode {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.advanced-mode a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.advanced-mode a:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
