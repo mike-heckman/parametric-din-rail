@@ -21,10 +21,20 @@ Configure your local environment by creating a `.dev.vars` file in the root dire
 ```
 ONSHAPE_ACCESS_KEY=your_access_key
 ONSHAPE_SECRET_KEY=your_secret_key
-ONSHAPE_URL=https://cad.onshape.com/documents/{did}/v/{vid}/e/{eid}
+ONSHAPE_URL=https://cad.onshape.com/documents/{document_id}/v/{version_id}/e/{element_id}
 ```
+(See `.dev.vars.example` for a template. Make sure `.dev.vars` is added to `.gitignore` and never committed.)
 
 Run locally:
 ```bash
 npx wrangler pages dev public
 ```
+
+### Production Deployment (Cloudflare Pages)
+
+When deploying to Cloudflare Pages, your API keys must be securely stored. **Never commit them to source control.**
+
+1. Go to the Cloudflare dashboard and select your Pages project.
+2. Navigate to **Settings** > **Environment variables**.
+3. Under **Production** (and optionally **Preview**), add the keys (`ONSHAPE_ACCESS_KEY`, `ONSHAPE_SECRET_KEY`, `ONSHAPE_URL`).
+4. Ensure the sensitive values are saved as encrypted variables to prevent them from being viewed again.
