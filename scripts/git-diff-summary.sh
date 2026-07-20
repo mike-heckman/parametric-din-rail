@@ -27,4 +27,42 @@ if [ -f coverage.md ]; then
     echo -e "\n\nCoverage:\n$(tail -n 1 coverage.md)" >> logs/git-diff.txt
 fi
 
-echo "Read ./logs/git-diff.txt and render it using the template in ./docs/templates/git-diff-summary.md"
+cat <<'EOM'
+1. Read ./logs/git-diff.txt.
+2. Process the output to create a human-readable version of the changes using the template included below. 
+3. Output this summary to the project root as ./git-diff-summary.md
+
+**git-diff-summary template:**
+---
+# Gemini Summary
+
+*Git Branch*: {from ./logs/git-diff.txt}
+*Date*: {from ./logs/git-diff.txt}
+
+## Overview
+
+After reading ./logs/git-diff.txt, Provide an executive summary of changes made in the "Git Diff" section
+
+## Key Changes
+
+### Heading 1
+
+Summarize the first key change
+
+### Heading 2
+
+Summarize the second key change
+
+### Heading N
+
+Continue summarizing each key change
+
+## Impact
+- **Title** Provide a list of items that show the impact of the modifications made. Include relevant items from: Performance, Maintainability, Robustness, Scalability, Code Quality, etc.
+
+## Verification
+- **Automated**: {Number} unit tests passing (`uv run pytest`).
+- **Lints**: All checks passed via project checklist script, including formatting and import cleanups.
+- **Coverage**: Provide a summary from the "Coverage" section of ./logs/git-diff.txt
+
+EOM

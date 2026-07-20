@@ -1,0 +1,6 @@
+# API Keys
+ONSHAPE_ACCESS_KEY=your_access_key
+ONSHAPE_SECRET_KEY=your_secret_key
+
+# Onshape document
+ONSHAPE_URL=https://cad.onshape.com/documents/{document_id}/v/{version_id}/e/{element_id}
