@@ -7,6 +7,7 @@
   <meta name="description" content="Parametric DIN Rail Rack 3D Configurator">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
   <div class="app-container">
@@ -19,22 +20,31 @@
       <form id="config-form">
         <div class="form-group">
           <label for="numRails">Number of DIN Rails</label>
-          <input type="number" id="numRails" name="numRails" value="2" min="1" max="10">
+          <input type="number" id="numRails" name="numRails" value="2" min="1" max="5" step="1">
         </div>
         
         <div class="form-group">
           <label for="spacing">Spacing (mm)</label>
-          <input type="number" id="spacing" name="spacing" value="50" min="10" max="200" step="1">
+          <div class="range-container">
+            <input type="range" id="spacing" name="spacing" value="50" min="20" max="100" step="5">
+            <span id="spacing-val">50 mm</span>
+          </div>
         </div>
         
         <div class="form-group">
           <label for="headDistance">Head Distance (mm)</label>
-          <input type="number" id="headDistance" name="headDistance" value="20" min="0" max="100" step="1">
+          <div class="range-container">
+            <input type="range" id="headDistance" name="headDistance" value="20" min="0" max="50" step="10">
+            <span id="headDistance-val">20 mm</span>
+          </div>
         </div>
         
         <div class="form-group">
           <label for="footDistance">Foot Distance (mm)</label>
-          <input type="number" id="footDistance" name="footDistance" value="20" min="0" max="100" step="1">
+          <div class="range-container">
+            <input type="range" id="footDistance" name="footDistance" value="20" min="0" max="50" step="10">
+            <span id="footDistance-val">20 mm</span>
+          </div>
         </div>
         
         <div class="form-group">
@@ -63,16 +73,26 @@
           </label>
         </div>
         
-        <button type="submit" id="generate-btn">
-          <span class="btn-text">Generate Model</span>
-          <span class="loader hidden"></span>
-        </button>
+        <div class="button-group">
+          <button type="submit" id="generate-btn">
+            <span class="btn-text">Generate Model</span>
+            <span class="loader hidden"></span>
+          </button>
+          
+          <button type="button" id="download-stl-btn">
+            <span class="btn-text">Download STL</span>
+            <span class="loader hidden"></span>
+          </button>
+        </div>
+        
+        <div class="advanced-mode">
+          <p>Need exact millimeter precision? <a href="https://cad.onshape.com/documents/e51df0b3cf2731be65ff4d8a/w/8f0f27d4c05cb541755b75f0/e/d8c5042a0e7c60372ca8a3fe?configuration=BackFootDIN%3Dfalse%3BBackFootDepth%3D0.001%2Bmeter%3BCount%3D1.0%3BExtraBottom%3D0.0%2Bmeter%3BExtraTop%3D0.0%2Bmeter%3BFootPadHeight%3D0.01%2Bmeter%3BFrontFootDIN%3Dfalse%3BFrontFootDepth%3D0.045%2Bmeter%3BGap%3D0.06%2Bmeter%3BIncludeFoot%3Dfalse&renderMode=0&uiState=6a5e5625b13ce118680d41d9" target="_blank">Open the full parametric model in Onshape.</a></p>
+        </div>
       </form>
     </aside>
     
     <main class="viewer-container">
-      <!-- Embedded iframe for Onshape -->
-      <iframe id="onshape-viewer" src="https://cad.onshape.com/documents/e51df0b3cf2731be65ff4d8a/w/8f0f27d4c05cb541755b75f0/e/d8c5042a0e7c60372ca8a3fe" title="Onshape 3D Viewer" allowfullscreen></iframe>
+      <model-viewer id="onshape-viewer" alt="DIN Rail Rack" camera-controls auto-rotate style="width: 100%; height: 100%;"></model-viewer>
     </main>
   </div>
   <script src="app.js"></script>
