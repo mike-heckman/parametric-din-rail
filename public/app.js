@@ -22,6 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
   updateRangeReadout('spacing', 'spacing-val', ' mm');
   updateRangeReadout('headDistance', 'headDistance-val', ' mm');
   updateRangeReadout('footDistance', 'footDistance-val', ' mm');
+  updateRangeReadout('frontFootDepth', 'frontFootDepth-val', ' mm');
+  updateRangeReadout('backFootDepth', 'backFootDepth-val', ' mm');
+
+  const freestandingCheckbox = document.getElementById('freestandingFoot');
+  const footOptionsContainer = document.getElementById('foot-options-container');
+
+  const toggleFootOptions = () => {
+    const isChecked = freestandingCheckbox.checked;
+    const inputs = footOptionsContainer.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.disabled = !isChecked;
+    });
+    footOptionsContainer.style.opacity = isChecked ? '1' : '0.5';
+  };
+
+  if (freestandingCheckbox && footOptionsContainer) {
+    freestandingCheckbox.addEventListener('change', toggleFootOptions);
+    toggleFootOptions(); // Initialize state
+  }
 
   const getPayload = (form, format) => {
     const formData = new FormData(form);
@@ -31,10 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
       spacing: Number(formData.get('spacing')),
       headDistance: Number(formData.get('headDistance')),
       footDistance: Number(formData.get('footDistance')),
-      footPadHeight: Number(formData.get('footPadHeight')),
       freestandingFoot: formData.get('freestandingFoot') === 'on',
       frontFootRail: formData.get('frontFootRail') === 'on',
-      backFootRail: formData.get('backFootRail') === 'on'
+      frontFootDepth: Number(formData.get('frontFootDepth')),
+      backFootRail: formData.get('backFootRail') === 'on',
+      backFootDepth: Number(formData.get('backFootDepth'))
     };
   };
 
@@ -120,4 +140,30 @@ document.addEventListener('DOMContentLoaded', () => {
       stlLoader.classList.add('hidden');
     }
   });
+
+  // Check cache on load
+  const loadDefaultFromCache = async () => {
+    const payload = getPayload(form, 'glb');
+    payload.checkCacheOnly = true;
+    try {
+      const response = await fetch('/api/onshape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (response.ok) {
+        console.log('Loaded default model from cache');
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const viewer = document.getElementById('onshape-viewer');
+        viewer.src = url;
+      }
+    } catch (error) {
+      console.error('Error checking cache on load:', error);
+    }
+  };
+
+  loadDefaultFromCache();
 });
