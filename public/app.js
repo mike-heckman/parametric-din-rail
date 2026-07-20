@@ -40,7 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('API returned non-200, which is expected before backend implementation.');
       } else {
         console.log('API call successful');
-        // Handle iframe update if needed
+        const viewer = document.getElementById('onshape-viewer');
+        const url = new URL(viewer.src);
+        url.searchParams.set('t', Date.now());
+        viewer.src = url.toString();
       }
     } catch (error) {
       console.error('Error sending request:', error);
