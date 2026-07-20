@@ -248,3 +248,18 @@ export async function onRequestPost(context) {
     return new Response(`Internal Server Error: ${err.message}`, { status: 500 });
   }
 }
+
+export async function onRequestGet(context) {
+  const { env } = context;
+  const onshapeUrl = env.ONSHAPE_URL;
+  if (!onshapeUrl) {
+    return new Response(JSON.stringify({ error: 'Missing ONSHAPE_URL in environment.' }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  return new Response(JSON.stringify({ url: onshapeUrl }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
+}

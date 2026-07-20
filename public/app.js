@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Check cache on load
   const loadDefaultFromCache = async () => {
     const payload = getPayload(form, 'glb');
     payload.checkCacheOnly = true;
@@ -165,5 +164,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const loadOnshapeUrl = async () => {
+    try {
+      const response = await fetch('/api/onshape', { method: 'GET' });
+      if (response.ok) {
+        const data = await response.json();
+        const advancedLink = document.getElementById('advanced-link');
+        if (advancedLink && data.url) {
+          advancedLink.href = data.url;
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching Onshape URL:', error);
+    }
+  };
+
   loadDefaultFromCache();
+  loadOnshapeUrl();
 });
